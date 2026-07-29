@@ -165,18 +165,3 @@ You can use IntelliJ's built-in HTTP client or similar tools to manually test en
 
 ---
 
-## Technical Architecture Details & Issues
-
-> [!NOTE]
-> The default package configuration was corrected from `com.example.patient-management` to `com.example.patient_management` to ensure Java package naming compliance.
-
-> [!WARNING]
-> **Gateway Filter Logic Issue:**
-> Inside [JwtValidationGatewayFilterFactory.java](file:///C:/Users/SIDDHANT/OneDrive/Desktop/patient-management/api-gateway/src/main/java/com/example/apigateway/filter/JwtValidationGatewayFilterFactory.java#L25-L29), there is a conditional check:
-> ```java
-> if(token == null || token.startsWith("Bearer ")) {
->     exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
->     return exchange.getResponse().setComplete();
-> }
-> ```
-> In standard deployments, tokens starting with `Bearer ` should be accepted and parsed, whereas this current check throws `UNAUTHORIZED` if a `Bearer ` prefix is detected. 
